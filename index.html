@@ -208,13 +208,10 @@
                     <p><strong>Total Announcements:</strong> ${d.count}</p>
                     <strong>Recent Updates:</strong>
                     <ul>
-                        ${d.titles.slice(0, 10).map(title =>
+                        ${d.titles.map(title =>
                             `<li>${title}</li>`
                         ).join('')}
                     </ul>
-                    ${d.titles.length > 10 ?
-                        `<p><em>...and ${d.titles.length - 10} more announcements</em></p>`
-                        : ''}
                 `;
                 
                 tooltip.style("display", "block")
