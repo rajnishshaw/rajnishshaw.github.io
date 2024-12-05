@@ -85,6 +85,15 @@
             padding: 4px 0;
         }
 
+        #tooltip a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #tooltip a:hover {
+            text-decoration: underline;
+        }
+
         #tooltip strong {
             color: #4c4f53;
             font-size: 15px;
@@ -202,18 +211,18 @@
             // Node click handler
             node.on("click", function(event, d) {
                 event.stopPropagation();
-                
+
                 const tooltipContent = `
                     <h4>${d.id}</h4>
                     <p><strong>Total Announcements:</strong> ${d.count}</p>
                     <strong>Recent Updates:</strong>
                     <ul>
-                        ${d.titles.map(title =>
-                            `<li>${title}</li>`
+                        ${d.titles.map((title, index) =>
+                            `<li><a href="${d.urls[index]}" target="_blank">${title}</a></li>`
                         ).join('')}
                     </ul>
                 `;
-                
+
                 tooltip.style("display", "block")
                     .html(tooltipContent)
                     .style("left", (event.pageX + 10) + "px")
