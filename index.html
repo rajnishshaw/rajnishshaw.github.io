@@ -34,7 +34,7 @@
             font-family: Arial;
             font-size: 12px;
             font-weight: bold;
-            text-shadow: 
+            text-shadow:
                 -1px -1px 0 #fff,
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
@@ -43,17 +43,17 @@
 
         #tooltip {
             position: absolute;
-            background-color: #fff7c8;  /* Light yellow background */
-            padding: 15px;              /* Increased padding */
-            border: 2px solid #4c4f53;  /* Darker border */
+            background-color: #fff7c8;
+            padding: 15px;
+            border: 2px solid #4c4f53;
             border-radius: 8px;
-            pointer-events: none;
+            pointer-events: auto;
             display: none;
-            min-width: 400px;           /* Minimum width */
-            max-width: 500px;           /* Maximum width */
+            min-width: 400px;
+            max-width: 500px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            font-size: 14px;            /* Larger base font size */
+            font-size: 14px;
         }
 
         #tooltip h4 {
@@ -61,7 +61,7 @@
             color: #333;
             border-bottom: 2px solid #4c4f53;
             padding-bottom: 8px;
-            font-size: 18px;            /* Larger heading */
+            font-size: 18px;
         }
 
         #tooltip p {
@@ -72,9 +72,9 @@
         #tooltip ul {
             margin: 10px 0;
             padding-left: 25px;
-            max-height: 300px;          /* Increased max height */
+            max-height: 300px;
             overflow-y: auto;
-            border-left: 3px solid #e6c300;  /* Yellow accent */
+            border-left: 3px solid #e6c300;
             padding-left: 15px;
         }
 
@@ -198,19 +198,22 @@
 
             // Enhanced tooltip
             const tooltip = d3.select("#tooltip");
-            
-            node.on("mouseover", function(event, d) {
+
+            // Node click handler
+            node.on("click", function(event, d) {
+                event.stopPropagation();
+                
                 const tooltipContent = `
                     <h4>${d.id}</h4>
                     <p><strong>Total Announcements:</strong> ${d.count}</p>
                     <strong>Recent Updates:</strong>
                     <ul>
-                        ${d.titles.slice(0, 10).map(title => 
+                        ${d.titles.slice(0, 10).map(title =>
                             `<li>${title}</li>`
                         ).join('')}
                     </ul>
-                    ${d.titles.length > 10 ? 
-                        `<p><em>...and ${d.titles.length - 10} more announcements</em></p>` 
+                    ${d.titles.length > 10 ?
+                        `<p><em>...and ${d.titles.length - 10} more announcements</em></p>`
                         : ''}
                 `;
                 
@@ -229,12 +232,26 @@
                 node.attr("opacity", n => connected.has(n.id) || n.id === d.id ? 1 : 0.1);
                 link.attr("opacity", l => l.source.id === d.id || l.target.id === d.id ? 1 : 0.1);
                 label.attr("opacity", n => connected.has(n.id) || n.id === d.id ? 1 : 0.1);
-            })
-            .on("mouseout", function() {
-                tooltip.style("display", "none");
-                node.attr("opacity", 1);
-                link.attr("opacity", 0.6);
-                label.attr("opacity", 1);
+            });
+
+            // Document click handler to hide tooltip
+            document.addEventListener('click', function(event) {
+                const tooltip = document.getElementById('tooltip');
+                const clickedNode = event.target.closest('.nodes circle');
+                const clickedTooltip = event.target.closest('#tooltip');
+                
+                if (!clickedNode && !clickedTooltip) {
+                    tooltip.style.display = 'none';
+                    // Reset node highlighting
+                    node.attr("opacity", 1);
+                    link.attr("opacity", 0.6);
+                    label.attr("opacity", 1);
+                }
+            });
+
+            // Tooltip click handler
+            tooltip.on("click", function(event) {
+                event.stopPropagation();
             });
 
             // Update positions on each tick
