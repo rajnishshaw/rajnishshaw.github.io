@@ -8,6 +8,11 @@
         body, html {
             margin: 0;
             padding: 0;
+        }
+        .built-with {
+            font-size: 12px;
+            color: orange;
+            float: right;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -15,7 +20,7 @@
 
         svg {
             width: 100vw;
-            height: 100vh;
+            height: calc(100vh - 37px);
             display: block;
         }
 
@@ -39,6 +44,22 @@
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
                 1px 1px 0 #fff;
+        }
+
+        #banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #232f3e;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-family: Arial;
+            font-size: 16px;
+            z-index: 1001;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         #tooltip {
@@ -106,6 +127,7 @@
     </style>
 </head>
 <body>
+    <div id="banner">re:Invent 2024 announcements<span class="built-with">The page was built with the help of Amazon Q Developer</span></div>
     <div id="tooltip"></div>
     <svg></svg>
 
