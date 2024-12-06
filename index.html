@@ -124,10 +124,43 @@
             color: #666;
             font-style: italic;
         }
+
+        #user-notes {
+            position: fixed;
+            top: 40px;
+            left: 10px;
+            background-color: rgba(244, 245, 236, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-family: Arial;
+            max-width: 350px;
+        }
+
+        #user-notes ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        #user-notes li {
+            margin: 5px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
     <div id="banner">re:Invent 2024 announcements<span class="built-with">The page was built with the help of Amazon Q Developer</span></div>
+    <div id="user-notes">
+        <strong>Note:</strong>
+        <ul>
+            <li>Each circle (node) represents a Tag from re:Invent announcements</li>
+            <li>Lines between circles show related topic areas</li>
+            <li>Bigger circles = More announcements with that tag</li>
+            <li>🚨 👉🏾 🔵 <B>Click</B> any circle to see all announcements for that tag</li>
+        </ul>
+    </div>
     <div id="tooltip"></div>
     <svg></svg>
 
